@@ -70,3 +70,4 @@ rm -rf /jail/zoobar/db
 python /jail/zoobar/zoodb.py init-person
 python /jail/zoobar/zoodb.py init-transfer
 
+#set_perms 61011:60000 755 /jail/zoobar/db

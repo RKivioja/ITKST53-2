@@ -168,7 +168,19 @@ pid_t launch_svc(CONF *conf, const char *name)
     if ((dir = NCONF_get_string(conf, name, "dir")))
     {
         /* chroot into dir */
+        chdir(dir);
+        chroot(dir);
+        
+        if (chroot(dir) != 0)
+        {
+            perror("chroot directory");
+            return 1;
+        }
     }
+
+    setresuid(uid, uid, uid);
+    setresgid(gid, gid, gid);
+    //setgroups(gid, gid);
 
     signal(SIGCHLD, SIG_DFL);
     signal(SIGPIPE, SIG_DFL);
